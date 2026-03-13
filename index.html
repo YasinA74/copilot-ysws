@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Copilot YSWS - You Ship, We Ship</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--bg: #0d1117;
+			--bg-soft: #161b22;
+			--bg-elevated: #21262d;
+			--text: #e6edf3;
+			--muted: #9da7b3;
+			--border: #30363d;
+			--purple: #a371f7;
+			--purple-soft: #c297ff;
+			--blue: #58a6ff;
+			--hackclub-red: #ec3750;
+			--card: rgba(22, 27, 34, 0.92);
+			--shadow: 0 14px 30px rgba(1, 4, 9, 0.42);
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			color: var(--text);
+			background:
+				radial-gradient(circle at 14% 8%, rgba(163, 113, 247, 0.2) 0 20%, transparent 21%),
+				radial-gradient(circle at 88% 84%, rgba(88, 166, 255, 0.15) 0 24%, transparent 25%),
+				linear-gradient(160deg, #090c10 0%, #0d1117 48%, #111827 100%);
+			font-family: "Space Grotesk", "Segoe UI", sans-serif;
+			min-height: 100%;
+			overflow-x: hidden;
+		}
+
+		.grain {
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			opacity: 0.13;
+			z-index: -1;
+			background-image:
+				linear-gradient(0deg, transparent 24%, rgba(230, 237, 243, 0.16) 25.1%, transparent 26%),
+				linear-gradient(90deg, transparent 24%, rgba(230, 237, 243, 0.1) 24.9%, transparent 27%);
+			background-size: 4px 4px;
+		}
+
+		.wrap {
+			max-width: 1080px;
+			margin: 0 auto;
+			padding: 28px 20px 70px;
+
+		}
+
+		.topbar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 14px;
+			margin-bottom: 30px;
+		}
+
+		.badge {
+			display: inline-block;
+			padding: 7px 12px;
+			border: 2px solid var(--border);
+			border-radius: 999px;
+			background: var(--bg-soft);
+
+			font-weight: 700;
+
+
+			letter-spacing: 0.02em;
+			box-shadow: 0 0 0 2px rgba(163, 113, 247, 0.2);
+			white-space: nowrap;
+		}
+
+		.hero {
+			position: relative;
+			border: 2px solid var(--border);
+			background: linear-gradient(120deg, rgba(22, 27, 34, 0.95), rgba(33, 38, 45, 0.98));
+			border-radius: 26px;
+			box-shadow: var(--shadow);
+			padding: 30px;
+			overflow: hidden;
+			animation: fadeUp 700ms ease-out both;
+		}
+
+		.hero::after {
+			content: "";
+			position: absolute;
+			width: 220px;
+			height: 220px;
+			right: -40px;
+			top: -42px;
+			border-radius: 50%;
+			background: conic-gradient(from 30deg, var(--purple), var(--purple-soft), var(--blue), var(--purple));
+			opacity: 0.28;
+			transform: rotate(-8deg);
+		}
+
+		h1,
+		h2,
+		h3 {
+			margin: 0;
+			line-height: 1.05;
+			font-family: "Archivo Black", Impact, sans-serif;
+			letter-spacing: 0.02em;
+			text-transform: uppercase;
+		}
+
+		h1 {
+			font-size: clamp(1rem, 5vw, 3rem);
+			max-width: 15ch;
+		}
+
+		.kicker {
+			margin-top: 14px;
+			max-width: 60ch;
+			font-size: 1.06rem;
+			line-height: 1.5;
+			font-weight: 500;
+			color: var(--muted);
+		}
+
+		.hero-cta {
+			margin-top: 22px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+		}
+
+		.btn {
+			appearance: none;
+			border: 2px solid var(--border);
+			border-radius: 12px;
+			padding: 11px 16px;
+			text-decoration: none;
+			color: var(--text);
+			font-weight: 700;
+			background: var(--bg-elevated);
+			box-shadow: 0 6px 16px rgba(1, 4, 9, 0.5);
+			transition: transform 140ms ease, box-shadow 140ms ease;
+		}
+
+		.btn:hover,
+		.btn:focus-visible {
+			transform: translate(-2px, -2px);
+			box-shadow: 0 10px 22px rgba(163, 113, 247, 0.34);
+			outline: none;
+		}
+
+		.btn--hot {
+			background: linear-gradient(180deg, #8957e5, #6e40c9);
+			border-color: #7f53d6;
+		}
+
+		section {
+			margin-top: 30px;
+		}
+
+		.panel {
+			border: 2px solid var(--border);
+			border-radius: 18px;
+			background: var(--card);
+			box-shadow: var(--shadow);
+			padding: 20px;
+			animation: fadeUp 800ms ease-out both;
+		}
+
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(12, 1fr);
+			gap: 14px;
+		}
+
+		.tier {
+			grid-column: span 4;
+			border: 2px solid var(--border);
+			border-radius: 16px;
+			background: var(--bg);
+			padding: 18px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.tier::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 7px;
+			background: linear-gradient(90deg, var(--purple), var(--blue));
+		}
+
+		.tier h3 {
+			font-size: 1.4rem;
+			margin-bottom: 8px;
+		}
+
+		.tier .price {
+			font-size: 1.06rem;
+			font-weight: 700;
+			margin-bottom: 8px;
+		}
+
+		.tier p {
+			margin: 0;
+			line-height: 1.4;
+		}
+
+		.steps {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 12px;
+			margin-top: 14px;
+		}
+
+		.step {
+			border: 2px dashed var(--purple);
+			border-radius: 14px;
+			padding: 14px;
+			background: var(--bg-soft);
+		}
+
+		.step span {
+			display: inline-block;
+			font-family: "Archivo Black", Impact, sans-serif;
+			font-size: 1.3rem;
+			margin-bottom: 6px;
+			color: var(--purple-soft);
+		}
+
+		.checklist {
+			list-style: none;
+			margin: 12px 0 0;
+			padding: 0;
+			display: grid;
+			gap: 10px;
+		}
+
+		.checklist li {
+			border: 2px solid var(--border);
+			background: var(--bg-soft);
+			border-radius: 12px;
+			padding: 11px 13px;
+			font-weight: 500;
+		}
+
+		.checklist li strong {
+			font-weight: 700;
+			color: var(--purple-soft);
+		}
+
+		.spark {
+			display: inline-block;
+			color: var(--hackclub-red);
+			animation: pulse 1.8s ease-in-out infinite;
+		}
+
+		.footer {
+			margin-top: 26px;
+			text-align: center;
+			font-size: 0.96rem;
+			opacity: 1;
+			color: var(--muted);
+			font-weight: 500;
+		}
+
+		@keyframes fadeUp {
+			from {
+				opacity: 0;
+				transform: translateY(16px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@keyframes pulse {
+			0%,
+			100% {
+				transform: scale(1);
+			}
+			50% {
+				transform: scale(1.16);
+			}
+		}
+
+		@media (max-width: 850px) {
+			.tier {
+				grid-column: span 6;
+			}
+
+			.steps {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		@media (max-width: 580px) {
+			.hero {
+				padding: 24px 18px;
+			}
+
+			.topbar {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			.tier {
+				grid-column: span 12;
+			}
+		}
+
+		.upup {
+    vertical-align: super;
+}
+	</style>
+</head>
+<body>
+	<div class="grain" aria-hidden="true"></div>
+	<main class="wrap">
+		<div class="topbar">
+			<span class="badge">Hack Club YSWS</span>
+			<span class="badge">You Ship, We Ship</span>
+		</div>
+
+		<section class="hero">
+			<h1>Work on open source projects,<br>Get Github Copilot Pro<span class="spark upup">+</span></h1>
+			<p class="kicker">
+				Put in focused build hours, ship your work, and unlock GitHub Copilot Pro+ plan for upto 3 months.<br>
+				Hack clubbers who log 4, 8, or 12+ hours on open source projects can claim matching grant tiers. Let's build and ship together! :))
+			</p>
+			<div class="hero-cta">
+				<a class="btn btn--hot" href="#tiers">View Grant Tiers</a>
+				<a class="btn" href="#how">How To Qualify</a>
+			</div>
+		</section>
+
+		<section id="tiers" class="panel">
+			<h2>Grant Tiers</h2>
+			<p>Base grant is $39 for a month of GitHub Copilot Pro+</p>
+			<div class="grid" style="margin-top: 14px;">
+				<article class="tier">
+					<h3>4+ Hours</h3>
+					<div class="price">1 Month Grant ($39)</div>
+					<p>Log at least four verified build hours and submit one shipped project demo.</p>
+				</article>
+				<article class="tier">
+					<h3>8+ Hours</h3>
+					<div class="price">2 Month Grant ($78)</div>
+					<p>Double your work, polish your project quality, and show clear progression on your project(s).</p>
+				</article>
+				<article class="tier">
+					<h3>12+ Hours</h3>
+					<div class="price">3 Month Grant ($117 max)</div>
+					<p>Highest tier. Ship hard, document your progress, and <b>CopilotMaxx</b> with a 3 month Copilot Pro+</p>
+				</article>
+			</div>
+		</section>
+
+		<section id="how" class="panel">
+			<h2>How It Works</h2>
+			<div class="steps">
+				<article class="step">
+					<span>1</span>
+					<p>Build or work on an open source website, app, game, script, tool, or mod.</p>
+				</article>
+				<article class="step">
+					<span>2</span>
+					<p>Track time in a verifiable way and commit progress.</p>
+				</article>
+				<article class="step">
+					<span>3</span>
+					<p>Ship your project and submit evidence/documentation to claim your matching tier.</p>
+				</article>
+			</div>
+		</section>
+
+		<section class="panel">
+			<h2>Submission Checklist</h2>
+			<ul class="checklist">
+				<li><strong>Project Link:</strong> Live demo, repo, or download link.</li>
+				<li><strong>Proof of Hours:</strong> At least 4, 8, or 12+ tracked hours.</li>
+				<li><strong>Build Log:</strong> Commits, changelog, screenshots, or dev notes.</li> <!-- Dev Notes!? Dev Reference!?? nuway-->
+				<li><strong>README:</strong> What you built, how to run it, and what you learned.</li>
+				<li><strong>Original Work:</strong> New work only. No old or double dipped submissions.</li>
+			</ul>
+		</section>
+
+		<section class="panel">
+			<h2>Philosophy</h2>
+			<p>
+			Hack Clubbers should have a Qualitative Technical Edge compared to other youth FOSS communities. Copilot pro+ (when used effectively) allows us to create more quickly, make low effort high value protoypes that we can turn into polished directed projects. 
+		<br><br>	Direction is what matters most. Copilot is a tool that can help us get there faster, but it won't put our creative direction into work. this ysws encourages more building and shipping of open source projects by Hack Clubbers.
+		<br><br> The life and persona you put on your work is what makes it artistic. 
+			</p>
+		</section>
+
+		<p class="footer">
+			Not an official (yet) Hack Club page. Made by @Yasin Ahmed (yasin@flonga.org) for the Hack Club community.
+		</p>
+	</main>
+</body>
+</html>
