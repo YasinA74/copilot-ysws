@@ -95,17 +95,41 @@
 			animation: fadeUp 700ms ease-out both;
 		}
 
-		.hero::after {
-			content: "";
+		.hero-orb {
 			position: absolute;
 			width: 220px;
 			height: 220px;
 			right: -40px;
 			top: -42px;
 			border-radius: 50%;
-			background: conic-gradient(from 30deg, var(--purple), var(--purple-soft), var(--blue), var(--purple));
+			background: url("spears.jpg") center/cover no-repeat;
 			opacity: 0.28;
 			transform: rotate(-8deg);
+			z-index: 1;
+		}
+
+		.hero-pop {
+			position: absolute;
+			right: 8px;
+			top: 166px;
+			padding: 8px 10px;
+			border: 2px solid var(--border);
+			border-radius: 10px;
+			background: var(--bg-soft);
+			font-size: 0.82rem;
+			font-weight: 700;
+			letter-spacing: 0.01em;
+			color: var(--text);
+			opacity: 0;
+			transform: translateY(-6px);
+			transition: opacity 140ms ease, transform 140ms ease;
+			pointer-events: none;
+			z-index: 2;
+		}
+
+		.hero-orb:hover + .hero-pop {
+			opacity: 1;
+			transform: translateY(0);
 		}
 
 		h1,
@@ -337,6 +361,8 @@
 		</div>
 
 		<section class="hero">
+			<span class="hero-orb" aria-hidden="true"></span>
+			<span class="hero-pop">vritney spheres approves</span>
 			<h1>Work on open source projects,<br>Get Github Copilot Pro<span class="spark upup">+</span></h1>
 			<p class="kicker">
 				Put in focused build hours, ship your work, and unlock GitHub Copilot Pro+ plan for upto 3 months.<br>
